@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="https://img.lovepik.com/free-png/20211211/lovepik-cake-dessert-icon-png-image_401480940_wh1200.png" type="image/png">
+<title>SweetDelights - Futuristic Pastry Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #fff8f3 0%, #ffe8dc 100%);
+    color: #4a2c2a;
+  }
+
+  /* Navbar */
+  .navbar {
+    width: 100%;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  }
+  .navbar h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff7a5c, #ff5733);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .search-wrapper {
+    position: relative;
+  }
+  .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    z-index: 1;
+  }
+  .navbar input {
+    padding: 12px 20px 12px 45px;
+    border-radius: 30px;
+    border: 2px solid #ff7a5c;
+    outline: none;
+    width: 320px;
+    font-size: 15px;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .navbar input:focus {
+    border-color: #ff5733;
+    box-shadow: 0 0 20px rgba(255, 122, 92, 0.4);
+    transform: scale(1.02);
+  }
+
+  /* Carousel */
+  .carousel {
+    margin-top: 90px;
+    width: 100%;
+    height: 480px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  }
+  .carousel-slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+  }
+  .carousel-slide.active {
+    opacity: 1;
+  }
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+  }
+  .carousel-overlay h2 {
+    font-size: 56px;
+    margin: 0;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    animation: fadeInUp 1s;
+  }
+  .carousel-overlay p {
+    font-size: 22px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    animation: fadeInUp 1.2s;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+  }
+  .hero-text h2 {
+    font-size: 48px;
+    margin: 0 0 20px 0;
+    background: linear-gradient(135deg, #ff7a5c, #ff5733);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-text p {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #6b4e3d;
+  }
+  .hero img {
+    width: 45%;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(255, 122, 92, 0.3);
+    transition: transform 0.4s;
+  }
+  .hero img:hover {
+    transform: scale(1.05) rotate(-2deg);
+  }
+
+  /* Sections */
+  section {
+    padding: 80px 50px;
+    max-width: 1400px;
+    margin: auto;
+  }
+  section h2 {
+    font-size: 42px;
+    margin-bottom: 30px;
+    text-align: center;
+    background: linear-gradient(135deg, #ff7a5c, #ff5733);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* About & History */
+  .about, .history {
+    max-width: 900px;
+    margin: auto;
+    font-size: 18px;
+    line-height: 1.8;
+    text-align: center;
+    color: #6b4e3d;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+
+  /* Review Cards */
+  .reviews {
+    display: flex;
+    overflow-x: auto;
+    gap: 25px;
+    padding: 20px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #ff7a5c #f0f0f0;
+  }
+  .reviews::-webkit-scrollbar {
+    height: 8px;
+  }
+  .reviews::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+  }
+  .reviews::-webkit-scrollbar-thumb {
+    background: #ff7a5c;
+    border-radius: 10px;
+  }
+  .review-card {
+    min-width: 280px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .review-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(255, 122, 92, 0.2);
+  }
+  .review-card p {
+    font-style: italic;
+    color: #6b4e3d;
+    line-height: 1.6;
+  }
+  .review-card h4 {
+    margin-top: 15px;
+    text-align: right;
+    font-weight: 600;
+    color: #ff7a5c;
+  }
+
+  /* Special Cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+    margin-top: 40px;
+  }
+  .card {
+    background: white;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(255, 122, 92, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(255, 122, 92, 0.3);
+  }
+  .card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.4s;
+  }
+  .card:hover img {
+    transform: scale(1.1) rotate(2deg);
+  }
+  .card h3 {
+    margin-top: 20px;
+    font-size: 22px;
+    color: #4a2c2a;
+  }
+
+  /* Filter Section */
+  .filter-section {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    justify-content: center;
+  }
+  .filter-btn {
+    padding: 12px 28px;
+    background: white;
+    border: 2px solid #ff7a5c;
+    border-radius: 30px;
+    color: #ff7a5c;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+  }
+  .filter-btn:hover {
+    background: #ff7a5c;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 122, 92, 0.4);
+  }
+  .filter-btn.active {
+    background: linear-gradient(135deg, #ff7a5c, #ff5733);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(255, 122, 92, 0.4);
+  }
+
+  /* Pastry Gallery */
+  .pastry-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 35px;
+    margin-top: 40px;
+  }
+  .pastry-item {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .pastry-item:hover {
+    transform: translateY(-20px) scale(1.02);
+    box-shadow: 0 25px 60px rgba(255, 122, 92, 0.35);
+  }
+  .pastry-item img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  .pastry-item:hover img {
+    transform: scale(1.15);
+  }
+  .pastry-info {
+    padding: 25px;
+  }
+  .pastry-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: #4a2c2a;
+  }
+  .pastry-desc {
+    font-size: 14px;
+    color: #8b7355;
+    margin: 0 0 15px 0;
+    line-height: 1.6;
+  }
+  .pastry-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ff5733;
+    margin: 12px 0;
+  }
+  .rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .stars {
+    font-size: 18px;
+  }
+  .rating-number {
+    font-weight: 600;
+    color: #4a2c2a;
+    font-size: 16px;
+  }
+  .rating-count {
+    font-size: 13px;
+    color: #999;
+  }
+  .add-to-cart {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #ff7a5c, #ff5733);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 15px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 5px 15px rgba(255, 87, 51, 0.3);
+  }
+  .add-to-cart:hover {
+    background: linear-gradient(135deg, #ff5733, #ff4520);
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 87, 51, 0.5);
+  }
+  .add-to-cart:active {
+    transform: scale(0.98);
+  }
+  .badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #ff5733, #ff4520);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 700;
+    animation: pulse 2.5s infinite;
+    box-shadow: 0 5px 15px rgba(255, 87, 51, 0.4);
+    z-index: 10;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    font-size: 24px;
+    color: #999;
+  }
+
+  /* Floating Button */
+  .float-btn {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    padding: 18px 28px;
+    background: linear-gradient(135deg, #ff7a5c, #ff5733);
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 8px 25px rgba(255, 87, 51, 0.4);
+    transition: all 0.3s;
+    z-index: 99;
+  }
+  .float-btn:hover {
+    transform: scale(1.12) translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 87, 51, 0.5);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 15px 20px;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .navbar h1 {
+      font-size: 24px;
+    }
+    .navbar input {
+      width: 100%;
+    }
+    .hero {
+      flex-direction: column;
+      padding: 40px 20px;
+    }
+    .hero img {
+      width: 100%;
+    }
+    section {
+      padding: 50px 20px;
+    }
+    section h2 {
+      font-size: 32px;
+    }
+    .carousel {
+      height: 300px;
+    }
+    .carousel-overlay h2 {
+      font-size: 36px;
+    }
+    .pastry-gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <h1>🧁 SweetDelights</h1>
+  <div class="search-wrapper">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search pastries..." />
+  </div>
+</div>
+
+<!-- Carousel -->
+<div class="carousel">
+  <div class="carousel-slide active">
+    <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=1200" alt="Pastries" />
+    <div class="carousel-overlay">
+      <h2>Fresh Baked Daily</h2>
+      <p>Experience pure deliciousness</p>
+    </div>
+  </div>
+  <div class="carousel-slide">
+    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200" alt="Cakes" />
+    <div class="carousel-overlay">
+      <h2>Artisan Creations</h2>
+      <p>Handcrafted with love</p>
+    </div>
+  </div>
+  <div class="carousel-slide">
+    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=1200" alt="Desserts" />
+    <div class="carousel-overlay">
+      <h2>Sweet Perfection</h2>
+      <p>Every bite is heaven</p>
+    </div>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-text">
+    <h2>Fresh Futuristic Pastries</h2>
+    <p>Experience next-generation desserts handcrafted with love. Our expert bakers combine traditional techniques with modern innovation to create unforgettable treats that delight all your senses.</p>
+  </div>
+  <img src="https://images.stockcake.com/public/b/8/b/b8bca4f2-33d0-40cb-a267-d57d747713cc_large/assorted-breakfast-pastries-stockcake.jpg" alt="Featured Pastry" />
+</section>
+
+<!-- About Section -->
+<section id="about">
+  <h2>About Us</h2>
+  <div class="about">
+    <p>SweetDelights is a modern pastry shop dedicated to bringing joy through exquisite desserts. Our team of expert bakers combines traditional techniques with futuristic culinary innovations to craft pastries that delight both the eyes and the palate. We source the finest ingredients and focus on sustainability, quality, and creativity. Every pastry tells a story and embodies our passion for flavors that linger long after the first bite.</p>
+  </div>
+</section>
+
+<!-- History Section -->
+<section id="history">
+  <h2>Our History</h2>
+  <div class="history">
+    <p>Founded in 2005, SweetDelights started as a small family bakery with a dream to redefine the pastry experience. Over the years, we expanded our offerings, embraced modern techniques, and established a loyal following. From humble beginnings to becoming a trendsetter in the gourmet pastry world, our journey reflects dedication, creativity, and love for the art of baking.</p>
+  </div>
+</section>
+
+<!-- Customer Reviews Section -->
+<section id="reviews">
+  <h2>Customer Reviews</h2>
+  <div class="reviews">
+    <div class="review-card">
+      <p>"Absolutely love the chocolate croissants! Every bite is heavenly. The staff is incredibly friendly and the atmosphere is delightful."</p>
+      <h4>⭐⭐⭐⭐⭐ Emily R.</h4>
+    </div>
+    <div class="review-card">
+      <p>"The macarons are perfect. Sweet, colorful, and delightful! Best I've had in the city. Will definitely be coming back for more."</p>
+      <h4>⭐⭐⭐⭐⭐ John D.</h4>
+    </div>
+    <div class="review-card">
+      <p>"Best pastry shop in town! Highly recommend the cupcakes. The presentation is stunning and the taste is even better."</p>
+      <h4>⭐⭐⭐⭐⭐ Sarah K.</h4>
+    </div>
+    <div class="review-card">
+      <p>"The staff is friendly and the desserts are futuristic and tasty. Love the modern vibe and creative flavor combinations."</p>
+      <h4>⭐⭐⭐⭐✨ Mike L.</h4>
+    </div>
+    <div class="review-card">
+      <p>"Amazing quality! The tiramisu is out of this world. You can taste the premium ingredients in every bite."</p>
+      <h4>⭐⭐⭐⭐⭐ Lisa M.</h4>
+    </div>
+  </div>
+</section>
+
+<!-- Special Cards -->
+<section class="section" id="specials">
+  <h2>Today's Highlights</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="https://bonnibakery.com/wp-content/uploads/2024/03/Chocolate-Cupcakes_52-1.jpg" alt="Chocolate Cupcake" />
+      <h3>🧁 Chocolate Cupcake</h3>
+    </div>
+    <div class="card">
+      <img src="https://doughandcream.com/cdn/shop/files/ButterCroissant_1024x1024.jpg?v=1734720149" alt="Butter Croissant" />
+      <h3>🥐 Butter Croissant</h3>
+    </div>
+    <div class="card">
+      <img src="https://makomacarons.com/cdn/shop/files/PHOTO-2023-12-17-23-14-23_2.jpg?v=1717103589" alt="Macaron Delight" />
+      <h3>🍬 Macaron Delight</h3>
+    </div>
+  </div>
+</section>
+
+<!-- Complete Pastry Catalog -->
+<section class="section" id="catalog">
+  <h2>🎂 Complete Pastry Collection</h2>
+  
+  <div class="filter-section">
+    <button class="filter-btn active" onclick="filterPastries('all')">All Pastries</button>
+    <button class="filter-btn" onclick="filterPastries('bestseller')">🔥 Best Sellers</button>
+    <button class="filter-btn" onclick="filterPastries('new')">✨ New Arrivals</button>
+    <button class="filter-btn" onclick="filterPastries('cake')">🎂 Cakes</button>
+    <button class="filter-btn" onclick="filterPastries('pastry')">🥐 Pastries</button>
+  </div>
+
+  <div class="pastry-gallery" id="pastryGallery">
+    <!-- Items will be dynamically generated -->
+  </div>
+</section>
+
+<!-- About Pastry Cakes Section -->
+<section id="pastry-info" style="background: white; border-radius: 30px; padding: 60px 50px; margin: 40px auto; max-width: 1200px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+  <h2>About Our Pastry Cakes</h2>
+  <p style="font-size: 18px; line-height: 1.8; color: #6b4e3d; margin-bottom: 40px; text-align: center;">
+    Pastries are versatile desserts – they can complete a sumptuous meal, be paired with evening tea and can even be served to guests to celebrate special occasions like birthdays or anniversaries. SweetDelights' pastry cakes are often described as slices of heaven because of their rich taste and texture. Made with high-quality ingredients and lots of love, our pastries are instant mood-lifters.
+  </p>
+  
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+    <div style="background: #fff8f3; padding: 25px; border-radius: 20px; border-left: 4px solid #ff7a5c;">
+      <h3 style="color: #ff5733; margin-bottom: 10px;">🍫 Chocoholic Pastry</h3>
+      <p style="color: #6b4e3d; line-height: 1.6;">Made on a sponge base generously layered with dark, milk, and white chocolate mousse. This triple-layered mousse cake looks gorgeous and tastes delicious.</p>
+    </div>
+    
+    <div style="background: #fff8f3; padding: 25px; border-radius: 20px; border-left: 4px solid #ff7a5c;">
+      <h3 style="color: #ff5733; margin-bottom: 10px;">😈 Devils Mousse Pastry</h3>
+      <p style="color: #6b4e3d; line-height: 1.6;">A delight for those who prefer gluten-free desserts. Chocolate mousse baked on a sponge base with a light and smooth texture.</p>
+    </div>
+    
+    <div style="background: #fff8f3; padding: 25px; border-radius: 20px; border-left: 4px solid #ff7a5c;">
+      <h3 style="color: #ff5733; margin-bottom: 10px;">🍍 Fresh Cream Pineapple</h3>
+      <p style="color: #6b4e3d; line-height: 1.6;">Moist vanilla sponge layered with fresh dairy cream and generous topping of fresh pineapple compote. Available in eggless variant.</p>
+    </div>
+    
+    <div style="background: #fff8f3; padding: 25px; border-radius: 20px; border-left: 4px solid #ff7a5c;">
+      <h3 style="color: #ff5733; margin-bottom: 10px;">🌰 Hazelnut Praline Mousse</h3>
+      <p style="color: #6b4e3d; line-height: 1.6;">Hazelnut praline chocolate mousse between layers of moist chocolate sponge with smooth hazelnut chocolate glaze on top.</p>
+    </div>
+    
+    <div style="background: #fff8f3; padding: 25px; border-radius: 20px; border-left: 4px solid #ff7a5c;">
+      <h3 style="color: #ff5733; margin-bottom: 10px;">🗽 New York Cheesecake</h3>
+      <p style="color: #6b4e3d; line-height: 1.6;">Classic smooth and creamy texture with buttery biscuit base, topped with our homemade meringue.</p>
+    </div>
+    
+    <div style="background: #fff8f3; padding: 25px; border-radius: 20px; border-left: 4px solid #ff7a5c;">
+      <h3 style="color: #ff5733; margin-bottom: 10px;">❤️ Red Velvet Pastry</h3>
+      <p style="color: #6b4e3d; line-height: 1.6;">Authentic layers of cocoa and buttermilk sponge with delectable cream cheese and lime juice frosting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact & Map Section -->
+<section id="contact" style="background: linear-gradient(135deg, #ff7a5c, #ff5733); color: white; padding: 80px 50px;">
+  <h2 style="color: white; text-align: center; margin-bottom: 50px;">Visit Our Store</h2>
+  
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1200px; margin: auto;">
+    <div>
+      <h3 style="font-size: 28px; margin-bottom: 20px;">📍 Get In Touch</h3>
+      <div style="font-size: 18px; line-height: 2;">
+        <p><strong>📞 Phone:</strong> +91 8182-881881</p>
+        <p><strong>✉️ Email:</strong> contact@sweetdelights.com</p>
+        <p><strong>🕒 Hours:</strong> Mon-Sun: 8:00 AM - 10:00 PM</p>
+        <p><strong>📍 Address:</strong> 123 Bakery Street, Sweet Town, Chennai - 600001</p>
+      </div>
+      
+      <div style="margin-top: 30px;">
+        <h4 style="margin-bottom: 15px;">Follow Us</h4>
+        <div style="display: flex; gap: 15px; font-size: 32px;">
+          <span style="cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">📘</span>
+          <span style="cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">📷</span>
+          <span style="cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">🐦</span>
+          <span style="cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">📌</span>
+        </div>
+      </div>
+    </div>
+    
+    <div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.8658045103997!2d80.2707!3d13.0827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDA0JzU3LjciTiA4MMKwMTYnMTQuNSJF!5e0!3m2!1sen!2sin!4v1234567890"
+        width="100%" 
+        height="350" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Section -->
+<section style="background: white; padding: 60px 50px; text-align: center;">
+  <h2 style="margin-bottom: 20px;">📧 Sign Up For Updates</h2>
+  <p style="color: #6b4e3d; font-size: 18px; margin-bottom: 30px;">Get exclusive offers, new product alerts, and delicious recipes delivered to your inbox!</p>
+  <div style="max-width: 500px; margin: auto; display: flex; gap: 10px;">
+    <input type="email" placeholder="Enter your email" style="flex: 1; padding: 15px 20px; border: 2px solid #ff7a5c; border-radius: 30px; font-size: 16px; outline: none;">
+    <button style="padding: 15px 35px; background: linear-gradient(135deg, #ff7a5c, #ff5733); color: white; border: none; border-radius: 30px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-size: 16px;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Subscribe</button>
+  </div>
+</section>
+
+<!-- Our Stores Section -->
+<section style="background: #fff8f3; padding: 60px 50px; text-align: center;">
+  <h2 style="margin-bottom: 30px;">🏪 Our Stores</h2>
+  <p style="font-size: 16px; line-height: 1.8; color: #6b4e3d; max-width: 1200px; margin: auto;">
+    <strong>We're expanding across India!</strong><br><br>
+    Agra | Ahmedabad | Ambala | Anand | Bengaluru | Bhopal | Chandigarh-Mohali | Chennai | Coimbatore | Dehradun | Delhi | Faridabad | Ghaziabad | Gurgaon | Goa | Hyderabad | Indore | Jaipur | Jalandhar | Kanpur | Karnal | Lucknow | Ludhiana | Meerut | Mumbai | Mysore | Nagpur | Nashik | Navi Mumbai | Noida | Patiala | Prayagraj | Pune | Raipur | Rajkot | Rohtak | Surat | Thane | Vadodara | Varanasi | Vijaywada
+  </p>
+</section>
+
+<!-- Footer -->
+<footer style="background: #4a2c2a; color: white; padding: 60px 50px 30px;">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1400px; margin: auto;">
+    
+    <!-- Column 1 -->
+    <div>
+      <h3 style="color: #ff7a5c; margin-bottom: 20px; font-size: 20px;">Quick Links</h3>
+      <ul style="list-style: none; padding: 0; line-height: 2.2;">
+        <li><a href="#about" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">Our Story</a></li>
+        <li><a href="#catalog" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">Our Products</a></li>
+        <li><a href="#specials" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">Speciality Cakes</a></li>
+        <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">Blogs</a></li>
+        <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">CSR</a></li>
+        <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">HTML Sitemap</a></li>
+      </ul>
+    </div>
+    
+    <!-- Column 2 -->
+    <div>
+      <h3 style="color: #ff7a5c; margin-bottom: 20px; font-size: 20px;">Policies & Info</h3>
+      <ul style="list-style: none; padding: 0; line-height: 2.2;">
+        <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">Privacy Policy</a></li>
+        <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">Cookie Policy</a></li>
+        <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">Refund Policy</a></li>
+        <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">FAQs</a></li>
+        <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">Nutritional Info</a></li>
+        <li><a href="#" style="color: white; text-decoration: none; transition: color 0.3s;" onmouseover="this.style.color='#ff7a5c'" onmouseout="this.style.color='white'">Corporate Gifting</a></li>
+      </ul>
+    </div>
+    
+    <!-- Column 3 -->
+    <div>
+      <h3 style="color: #ff7a5c; margin-bottom: 20px; font-size: 20px;">Contact Us</h3>
+      <p style="line-height: 2;">
+        📞 <strong>Phone:</strong><br>+91 8182-881881<br><br>
+        ✉️ <strong>Email:</strong><br>contact@sweetdelights.com<br><br>
+        🕒 <strong>Hours:</strong><br>Mon-Sun: 8AM - 10PM
+      </p>
+    </div>
+    
+    <!-- Column 4 -->
+    <div>
+      <h3 style="color: #ff7a5c; margin-bottom: 20px; font-size: 20px;">About SweetDelights</h3>
+      <p style="line-height: 1.8; color: #ddd;">
+        Since 2005, we've been crafting the finest pastries and desserts with passion and dedication. Our mission is to bring joy to every customer through exceptional quality and taste.
+      </p>
+      <div style="margin-top: 20px; display: flex; gap: 15px; font-size: 28px;">
+        <span style="cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">📘</span>
+        <span style="cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">📷</span>
+        <span style="cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">🐦</span>
+        <span style="cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">💼</span>
+      </div>
+    </div>
+  </div>
+  
+  <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #6b4e3d;">
+    <p style="color: #ddd; font-size: 14px;">© 2024 SweetDelights. All Rights Reserved. | Made with ❤️ and lots of sugar!</p>
+  </div>
+</footer>
+
+<!-- Floating Chatbot Button -->
+<div class="float-btn">💬 Chat with us</div>
+
+<script>
+// Pastry Database
+const pastries = [
+  {
+    id: 1,
+    name: "Chocolate Fudge Cupcake",
+    desc: "Rich chocolate cupcake with velvety fudge frosting and chocolate chips",
+    price: 4.99,
+    image: "https://laneandgreyfare.com/wp-content/uploads/2022/10/Chocolate-Fudge-Cupcakes-2.jpg",
+    rating: 4.8,
+    reviews: 342,
+    category: "cake",
+    badge: "bestseller"
+  },
+  {
+    id: 2,
+    name: "Classic Butter Croissant",
+    desc: "Flaky, buttery layers of pure perfection, baked fresh daily",
+    price: 3.49,
+    image: "https://www.aliceboulangerie.com.sg/wp-content/uploads/2023/01/Classic-Croissant--scaled.jpg",
+    rating: 4.9,
+    reviews: 528,
+    category: "pastry",
+    badge: "bestseller"
+  },
+  {
+    id: 3,
+    name: "Rainbow Macaron Box",
+    desc: "Assorted flavors in vibrant colors - 6 pieces per box",
+    price: 12.99,
+    image: "https://thisisanna.co.uk/cdn/shop/files/original_christmas-wreath-macaron-box.jpg?v=1760615432",
+    rating: 4.7,
+    reviews: 213,
+    category: "pastry",
+    badge: null
+  },
+  {
+    id: 4,
+    name: "Red Velvet Cake Slice",
+    desc: "Classic red velvet with cream cheese frosting and white chocolate",
+    price: 6.99,
+    image: "https://freshaprilflours.com/wp-content/uploads/2017/09/rv-cake-04.jpg",
+    rating: 4.9,
+    reviews: 445,
+    category: "cake",
+    badge: "bestseller"
+  },
+  {
+    id: 5,
+    name: "Strawberry Cheesecake",
+    desc: "Creamy cheesecake with fresh strawberries and graham cracker crust",
+    price: 7.49,
+    image: "https://www.californiastrawberries.com/wp-content/uploads/2022/05/Mini-Strawberry-Cheesecakes.jpg",
+    rating: 4.8,
+    reviews: 389,
+    category: "cake",
+    badge: null
+  },
+  {
+    id: 6,
+    name: "Almond Croissant",
+    desc: "Buttery croissant filled with sweet almond cream and sliced almonds",
+    price: 4.29,
+    image: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400",
+    rating: 4.6,
+    reviews: 198,
+    category: "pastry",
+    badge: "new"
+  },
+  {
+    id: 7,
+    name: "Tiramisu Delight",
+    desc: "Italian classic with espresso-soaked ladyfingers and mascarpone",
+    price: 8.99,
+    image: "https://thumbs.dreamstime.com/b/elegant-dessert-indulgence-heavenly-tiramisu-slice-creamy-layers-coffee-flavors-italian-delight-393953229.jpg",
+    rating: 4.9,
+    reviews: 612,
+    category: "cake",
+    badge: "bestseller"
+  },
+  {
+    id: 8,
+    name: "Blueberry Muffin",
+    desc: "Moist muffin bursting with fresh blueberries and streusel topping",
+    price: 3.99,
+    image: "https://wildernesswife.com/wp-content/uploads/2023/09/jordan_marsh_blueberry_muffin1.jpg",
+    rating: 4.5,
+    reviews: 267,
+    category: "pastry",
+    badge: null
+  },
+  {
+    id: 9,
+    name: "Lemon Tart",
+    desc: "Tangy lemon curd in a buttery pastry shell with meringue topping",
+    price: 5.49,
+    image: "https://www.recipetineats.com/uploads/2021/06/French-Lemon-Tart_5-main.jpg",
+    rating: 4.7,
+    reviews: 324,
+    category: "pastry",
+    badge: "new"
+  },
+  {
+    id: 10,
+    name: "Black Forest Cake",
+    desc: "Chocolate layers with cherry compote and whipped cream",
+    price: 9.99,
+    image: "https://www.hotbreads.co.in/cdn/shop/products/0I4A5438_1200x1200.jpg?v=1641168101",
+    rating: 4.8,
+    reviews: 421,
+    category: "cake",
+    badge: null
+  },
+  {
+    id: 11,
+    name: "Cinnamon Roll",
+    desc: "Soft, gooey roll with cream cheese icing and extra cinnamon",
+    price: 4.49,
+    image: "https://www.abakingjourney.com/wp-content/uploads/2022/11/Coffee-Cinnamon-Rolls-Feature1.jpg",
+    rating: 4.9,
+    reviews: 556,
+    category: "pastry",
+    badge: "bestseller"
+  },
+  {
+    id: 12,
+    name: "Matcha Green Tea Cake",
+    desc: "Japanese-inspired with subtle matcha flavor and white chocolate",
+    price: 7.99,
+    image: "https://hannahcooking.com/wp-content/uploads/2025/01/baked-matcha-cake-recipe-vegan.jpg",
+    rating: 4.6,
+    reviews: 178,
+    category: "cake",
+    badge: "new"
+  },
+  {
+    id: 13,
+    name: "Chocolate Éclair",
+    desc: "Classic French pastry with chocolate custard and glossy icing",
+    price: 4.79,
+    image: "https://thescranline.com/wp-content/uploads/2023/01/CHOCOLATE-ECLAIRS-WEB-04.jpg",
+    rating: 4.7,
+    reviews: 294,
+    category: "pastry",
+    badge: null
+  },
+  {
+    id: 14,
+    name: "Carrot Cake Slice",
+    desc: "Spiced cake with walnuts, cream cheese frosting, and decorative carrots",
+    price: 6.49,
+    image: "https://www.allrecipes.com/thmb/FdnjmAgpd-a2Df99LIY6wRsRrFQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/AR-17393-Best-Carrot-Cake-Ever-ddmfs-4x3-724b5c5584b04426852addcf85ac72af.jpg",
+    rating: 4.8,
+    reviews: 367,
+    category: "cake",
+    badge: null
+  },
+  {
+    id: 15,
+    name: "Berry Danish",
+    desc: "Flaky pastry with cream cheese filling and mixed berry compote",
+    price: 4.99,
+    image: "https://theobroma.in/cdn/shop/files/HIGHRESBlueberryDanish02-Square.jpg?v=1710838921",
+    rating: 4.6,
+    reviews: 221,
+    category: "pastry",
+    badge: "new"
+  }
+];
+
+let currentFilter = 'all';
+
+// Generate stars display
+function generateStars(rating) {
+  const fullStars = Math.floor(rating);
+  const hasHalf = rating % 1 >= 0.5;
+  let stars = '';
+  
+  for (let i = 0; i < fullStars; i++) {
+    stars += '⭐';
+  }
+  if (hasHalf) stars += '✨';
+  
+  return stars;
+}
+
+// Render pastries
+function renderPastries(items) {
+  const gallery = document.getElementById('pastryGallery');
+  
+  if (items.length === 0) {
+    gallery.innerHTML = '<div class="no-results">😕 No pastries found. Try a different search or filter!</div>';
+    return;
+  }
+  
+  gallery.innerHTML = items.map(pastry => `
+    <div class="pastry-item" data-category="${pastry.category}">
+      ${pastry.badge ? `<span class="badge">${pastry.badge === 'bestseller' ? '🔥 Best Seller' : '✨ New'}</span>` : ''}
+      <img src="${pastry.image}" alt="${pastry.name}">
+      <div class="pastry-info">
+        <h3 class="pastry-name">${pastry.name}</h3>
+        <p class="pastry-desc">${pastry.desc}</p>
+        <div class="rating">
+          <span class="stars">${generateStars(pastry.rating)}</span>
+          <span class="rating-number">${pastry.rating}</span>
+          <span class="rating-count">(${pastry.reviews} reviews)</span>
+        </div>
+        <div class="pastry-price">${pastry.price.toFixed(2)}</div>
+        <button class="add-to-cart" onclick="addToCart(${pastry.id})">Add to Cart 🛒</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Filter pastries
+function filterPastries(filter) {
+  currentFilter = filter;
+  
+  // Update active button
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+  
+  let filtered = pastries;
+  
+  if (filter === 'bestseller') {
+    filtered = pastries.filter(p => p.badge === 'bestseller');
+  } else if (filter === 'new') {
+    filtered = pastries.filter(p => p.badge === 'new');
+  } else if (filter !== 'all') {
+    filtered = pastries.filter(p => p.category === filter);
+  }
+  
+  // Apply search if there's text
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  if (searchTerm) {
+    filtered = filtered.filter(p => 
+      p.name.toLowerCase().includes(searchTerm) || 
+      p.desc.toLowerCase().includes(searchTerm)
+    );
+  }
+  
+  renderPastries(filtered);
+}
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', function(e) {
+  const searchTerm = e.target.value.toLowerCase();
+  
+  let filtered = pastries;
+  
+  // Apply current filter
+  if (currentFilter === 'bestseller') {
+    filtered = pastries.filter(p => p.badge === 'bestseller');
+  } else if (currentFilter === 'new') {
+    filtered = pastries.filter(p => p.badge === 'new');
+  } else if (currentFilter !== 'all') {
+    filtered = pastries.filter(p => p.category === currentFilter);
+  }
+  
+  // Apply search
+  if (searchTerm) {
+    filtered = filtered.filter(p => 
+      p.name.toLowerCase().includes(searchTerm) || 
+      p.desc.toLowerCase().includes(searchTerm)
+    );
+  }
+  
+  renderPastries(filtered);
+});
+
+// Add to cart function
+function addToCart(id) {
+  const pastry = pastries.find(p => p.id === id);
+  alert(`🎉 Added "${pastry.name}" to cart!\n\nPrice: ${pastry.price.toFixed(2)}\nThank you for your order!`);
+}
+
+// Carousel functionality
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+
+function showSlide(n) {
+  slides.forEach(slide => slide.classList.remove('active'));
+  currentSlide = (n + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+  showSlide(currentSlide + 1);
+}
+
+// Auto-advance carousel
+setInterval(nextSlide, 4000);
+
+// Initial render
+renderPastries(pastries);
+
+//<script>
+  // Disable right-click context menu
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    alert("Right-click is disabled on this website.");
+  });
+
+</script>
+
+</body>
+</html>
