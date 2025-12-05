@@ -803,8 +803,31 @@
 
 </section>
 
+<footer style="
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(to right, #0a0a0a, #1a1a1a);
+    color: #eee;
+    text-align: center;
+    padding: 25px 10px;
+    font-size: 14px;
+    margin-top: 50px;
+    border-top: 1px solid #333;
+    position: relative;
+    z-index: 10;
+">
+    <p style="opacity:1; transform:translateY(0);">
+        &copy; <span id="currentYear"></span> ruush. All rights reserved.
+    </p>
+    <p style="opacity:1; transform:translateY(0);">
+        <a href="/privacy-policy" style="color:#8ab4f8; text-decoration:none; margin:0 10px;">Privacy Policy</a> |
+        <a href="/terms-of-service" style="color:#8ab4f8; text-decoration:none; margin:0 10px;">Terms of Service</a> |
+        <a href="/contact" style="color:#8ab4f8; text-decoration:none; margin:0 10px;">Contact</a>
+    </p>
+</footer>
 
 <script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
     const faders = document.querySelectorAll('.fade');
     const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
 
